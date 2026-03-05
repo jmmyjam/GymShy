@@ -1,8 +1,18 @@
 from fastapi import FastAPI
+from database import Equipment
 
 app = FastAPI()
 
+@app.get("/")
+async def greet():
+    return "Welcome to Gymmy"
 
-@app.get("/equipment/{item_id}")
-async def read_item(item_id):
-    return {"item_id": item_id}
+equipment = [
+    Equipment(id = 1, name = "weights", description = "heavy"),
+    Equipment(id = 2, name = "barbell", description = "heavy")
+]
+
+@app.get("/equipment")
+async def get_all_equipment():
+    return equipment
+
