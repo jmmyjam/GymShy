@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from database import equipment, user_equipment
+from database import allequipment, user_equipment
 
 app = FastAPI()
 
@@ -9,12 +9,12 @@ async def greet():
 
 @app.get("/allequipment")
 async def get_all_equipment():
-    return equipment
+    return allequipment
 
 @app.get("/equipment/{name}")
 async def get_equipment_id(name: str):
-    for item in equipment:
-        if item.name.lower() == name.lower():
+    for item in allequipment:
+        if item.name.lower() == name.lower().replace(" ", ""):
             return item
     return "item not found"
 
@@ -24,8 +24,8 @@ async def get_user_equipment():
 
 @app.post("/myequipment/{name}")
 async def add_item(name: str):
-    for item in equipment:
-        if item.name.lower() == name.lower():
+    for item in allequipment:
+        if item.name.lower() == name.lower().replace(" ", ""):
             if item not in user_equipment:
                 user_equipment.append(item)
             return user_equipment
