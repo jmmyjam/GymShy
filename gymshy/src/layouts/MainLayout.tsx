@@ -1,29 +1,29 @@
-import { Outlet, NavLink } from 'react-router-dom'
+import { Outlet, NavLink } from "react-router-dom";
 
-export default function MainLayout() {
+function MainLayout() {
   const navItems = [
-    { to: '/', label: 'Home' },
-    { to: '/equipment', label: 'Equipment' },
-    { to: '/planner', label: 'Plan Visit' },
-    { to: '/progress', label: 'Progress' },
-    { to: '/toolkit', label: 'Toolkit' },
-  ]
+    { to: "/", label: "Home" },
+    { to: "/equipment", label: "Equipment" },
+    { to: "/planner", label: "Plan Visit" },
+    { to: "/progress", label: "Progress" },
+    { to: "/toolkit", label: "Toolkit" },
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-vh-100 bg-light">
       {/* Top navbar */}
-      <nav className="bg-white shadow-sm px-6 py-4 flex items-center justify-between">
-        <span className="text-xl font-bold text-green-600">GymShy</span>
-        <div className="flex gap-6">
-          {navItems.map(item => (
+      <nav className="bg-white shadow-sm px-4 py-3 d-flex align-items-center justify-content-between">
+        <span className="fs-5 fw-bold text-success">GymShy</span>
+        <div className="d-flex gap-4">
+          {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
-              end={item.to === '/'}
+              end={item.to === "/"}
               className={({ isActive }) =>
-                `text-sm font-medium transition-colors ${
-                  isActive ? 'text-green-600' : 'text-gray-500 hover:text-gray-800'
-                }`
+                isActive
+                  ? "text-success fw-medium text-decoration-none small"
+                  : "text-muted text-decoration-none small"
               }
             >
               {item.label}
@@ -33,9 +33,11 @@ export default function MainLayout() {
       </nav>
 
       {/* Page content */}
-      <main className="max-w-5xl mx-auto px-6 py-8">
+      <main className="container-xl mx-auto px-4 py-4">
         <Outlet />
       </main>
     </div>
-  )
+  );
 }
+
+export default MainLayout;

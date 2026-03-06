@@ -1,3 +1,9 @@
-export default function AnxietyToolkit() {
-  return <div className="p-8"><h1 className="text-2xl font-bold">Anxiety Toolkit</h1></div>
+function AnxietyToolkit() {
+  return (
+    <div className="p-4">
+      <h1 className="fs-4 fw-bold">Anxiety Toolkit</h1>
+    </div>
+  );
 }
+
+export default AnxietyToolkit;

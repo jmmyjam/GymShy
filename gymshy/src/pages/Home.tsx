@@ -1,12 +1,21 @@
-export default function Home() {
-  const name = "Jimmy";
-  if (name)
-    return <div className="p-8">
-            <h1 className="text-2xl font-bold">Home</h1>
-            <h1> Hello, {name}! </h1>
-          </div>
-  return <div className="p-8">
-            <h1 className="text-2xl font-bold">Home</h1>
-            <h1> Welcome, Guest! </h1>
-          </div>
+import Alert from "../components/Alert";
+import Button from "../components/Button";
+import { useState } from "react";
+
+function Home() {
+  const name = "User";
+  const [alertVisible, setAlertVisibility] = useState(true);
+  return (
+    <div className="p-4">
+      {alertVisible && (
+        <Alert onClose={() => setAlertVisibility(false)}>
+          Hi, thank you for visiting Gymmy, for the pursuit of fitness!
+        </Alert>
+      )}
+      <h1 className="fs-4 fw-bold">Home</h1>
+      <h1>{name ? `Hello, ${name}!` : "Welcome, Guest!"}</h1>
+    </div>
+  );
 }
+
+export default Home;

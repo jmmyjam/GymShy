@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from models import Equipment, allequipment
 from database import session, engine
 import database_models
@@ -6,6 +7,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 database_models.Base.metadata.create_all(bind = engine)
 
@@ -19,7 +27,9 @@ def get_database():
 def init_database():
     database = session()
     count = database.query(database_models.Equipment).count()
-    if count == 0:
+    if count != len(allequipment):
+        database.query(database_models.UserEquipment).delete()
+        database.query(database_models.Equipment).delete()
         for item in allequipment:
             database.add(database_models.Equipment(**item.model_dump()))
         database.commit()

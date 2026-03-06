@@ -5,14 +5,23 @@ import Equipment from "./pages/Equipment";
 import VisitPlanner from "./pages/VisitPlanner";
 import Progress from "./pages/Progress";
 import AnxietyToolkit from "./pages/AnxietyToolkit";
-import ListGroup from "./components/ListGroup";
 
-export default function App() {
-  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
-
+function App() {
   return (
     <div>
-      <ListGroup items={items} heading="Cities" />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="equipment" element={<Equipment />} />
+            <Route path="planner" element={<VisitPlanner />} />
+            <Route path="progress" element={<Progress />} />
+            <Route path="toolkit" element={<AnxietyToolkit />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
+
+export default App;
